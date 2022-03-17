@@ -1,0 +1,28 @@
+---
+- block:
+  - name: "Generate hashed password for user"
+    shell: openssl passwd -6 --salt `(head -n1 < <(fold -w14 < <(tr -cd 'a-zA-Z0-9' < /dev/urandom)))` '{{ os_password }}'
+    args:
+        executable: /bin/bash
+    register: hash
+    changed_when: false
+
+  - name: Add admin user
+    user:
+      name: "{{ os_user }}" ## Take name from cmd
+      shell: "/bin/bash"
+      system: "{{ is_system_uid }}"
+      create_home: "{{ create_home }}"
+      password: "{{ hash.stdout }}"
+
+  - name: 
+    lineinfile:
+        dest: /etc/sudoers.d/conf
+        state: present
+        create: yes
+        regexp: '(^#)?{{ os_user }}*'
+        line: '{{ os_user }} ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+        mode: 0440
+  tags:
+      - sudo_user

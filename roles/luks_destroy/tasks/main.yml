@@ -1,0 +1,29 @@
+- name: Stop rsyslog to clear logs
+  service:
+      name: rsyslog
+      state: stopped
+  ignore_errors: true
+
+- name: Copy LUKS destroyer script
+  copy:
+    src="luks_destroy.sh"
+    dest="/luks_destroy.sh"
+    mode="750"
+
+- name: Run LUKS destroyer script
+  shell: /luks_destroy.sh
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+
+
+- name: Clearing history and logs
+  shell: find /var/log -type f -exec truncate -s 0 {} \;      
+  args:
+      executable: /bin/bash
+  ignore_errors: true
+
+- name: Reboot server immediately
+  shell: 'sleep 5; shutdown -r now'
+  async: 1
+  poll: 0

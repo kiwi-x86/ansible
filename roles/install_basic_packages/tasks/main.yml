@@ -1,0 +1,22 @@
+- block:
+  - name: Install EPEL yum repository
+    yum:
+      name: epel-release
+      state: latest
+
+  - name: Install packages for RHEL based hosts
+    yum:
+      name: ['epel-release', 'sysstat', 'iotop', 'htop', 'strace', 'vim', 'screen',
+              'nc', 'curl', 'wget', 'bind-utils', 'net-tools', 'lsof', 'zip',
+              'unzip', 'tcpdump', 'dos2unix', 'gcc', 'git', 'iptables-services', 'tar', 'network-scripts', '@Development tools', 'rpmdevtools', 'rpmlint']
+      state: present
+  when: (ansible_distribution == "RedHat")
+
+
+- name: Install packages for Debian based hosts
+  apt:
+    name: ['curl', 'wget', 'net-tools', 'bind9-utils', 'screen', 'zip', 'unzip', 'gcc', 'git', 'whois',
+            'lsof', 'tcpdump', 'git', 'zip', 'unzip', 'nano', 'vim', 'sysstat', 'ifstat', 'iotop', 'build-essential']
+    state: present
+  when: (ansible_os_family == "Debian")
+
