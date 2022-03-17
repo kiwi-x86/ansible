@@ -1,0 +1,8 @@
+- name: Copy over the chrony configuration
+  template: src=chrony.conf dest=/etc/chrony.conf
+
+- name: restart chrony daemon
+  systemd:
+    name: chronyd
+    enabled: yes
+    state: restarted

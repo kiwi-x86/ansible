@@ -1,0 +1,29 @@
+---
+
+- name: Install Mysql package - RHEL based OS
+  yum: name={{ item }} state=present
+  with_items:
+   - mariadb-server
+
+- name: Create Mysql configuration file
+  template: src=my.cnf.j2 dest=/etc/my.cnf
+  notify:
+  - restart mysql
+
+- name: Start Mysql Service
+  service: name=mysqld state=started enabled=yes
+
+
+
+- name: Install Mysql package - Debian based OS
+  apt:
+    name: mariadb-server
+    state: present
+
+- name: Create Mysql configuration file
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+  notify:
+  - restart mysql
+
+- name: Start Mysql Service
+  service: name=mysqld state=started enabled=yes

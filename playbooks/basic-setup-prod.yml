@@ -1,0 +1,25 @@
+- hosts: all
+  become: yes
+  gather_facts: yes
+  vars:
+    os_user: user
+    if_userid_is_system: false
+    create_home: true
+    os_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          61663238366634353163623463323333383066663134393762626561643661663863653162343634
+          3835396135303033626562303636313834303032383762650a623639353337363363386434386333
+          33626162336663616661613064316265623832333133613666613464313738636663326364613730
+          3231343266393438630a613837623339356534303666633633396431656437306536336664363538
+          39613365613762363333376161323633613131356464363530386163616632623637
+
+  roles:
+    - add_sudo_user
+    - add_ssh_key
+    - disable_sec_services
+    - upgrade-packages
+    - install_basic_packages
+    - timezone_conf
+    - iptables
+    - fail2ban
+      #    - cis_security_ubuntu

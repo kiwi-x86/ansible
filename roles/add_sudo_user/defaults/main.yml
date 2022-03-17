@@ -1,0 +1,3 @@
+os_user: user
+is_system_uid: false
+create_home: true

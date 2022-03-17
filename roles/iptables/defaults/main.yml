@@ -1,0 +1,24 @@
+---
+
+# enable rate limiting
+iptables_rate_limiting: true
+
+# DROP all traffic not handled by the firewall.
+iptables_drop: true
+
+# ICMP ACCEPT
+iptables_icmp_accept: false
+
+# open ports incoming
+iptables_rules_in:
+  - protocol: tcp
+    dport: 22
+
+# opening ports for ospf
+iptables_rules_in_ospf: []
+
+# open ports forwarding
+iptables_rules_fwd: []
+#  - dst: 192.0.2.1
+#    protocol: tcp
+#    dport: 22

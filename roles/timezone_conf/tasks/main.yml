@@ -1,0 +1,9 @@
+- name: Installing tzdata of the lates Version (update if present)
+  apt:
+    name: tzdata 
+    state: latest
+
+- name: Set timezone 
+  timezone:
+    name: Etc/GMT
+    hwclock: UTC
