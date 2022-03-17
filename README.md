@@ -1,1 +1,2 @@
-Some roles created/remastered to work with Ubuntu, Debian and/or Centos.
+Some roles work with both Debian-based and/or RHEL-based distributives.
+Please check it by your own.
