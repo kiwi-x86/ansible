@@ -1,5 +1,0 @@
-- name: Disable local/cloud user ssh
-  lineinfile:
-    dest: "/home/{{ os_user }}/.ssh/authorized_keys"
-    regexp: "^ssh-rsa.*"
-    state: absent

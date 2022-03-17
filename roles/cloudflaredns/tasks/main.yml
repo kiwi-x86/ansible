@@ -1,9 +1,0 @@
-- name: Create a test.corelan.tech A record to point to 127.0.0.1
-  cloudflare_dns:
-    zone: "{{ domain_name }}"
-    record: "{{ record }}"
-    type: A
-    value: 127.0.0.1
-    account_email: "{{ account_email }}"
-    account_api_token: "{{ api_key }}"
-  register: record
